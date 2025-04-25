@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import "tailwindcss";
+
+@theme{
+  --color-text-primary:#545744;
+  --color-bg-primary:#eeeae3;
+  --color-bg-secondary:#343330;
+  --color-btn-primary:#139ae1;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #eeeae3;
+  }
