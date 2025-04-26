@@ -1,7 +1,9 @@
 import {plans} from "../assets/data"
+import { useDispatch, useSelector } from "react-redux";
 
 const BuyCredit=()=>{
-    // TODO: if user is logged in then show purchase instead of get started in btn
+    const authenticated=useSelector((store)=>store.global.authenticated)
+    
     return(
         <>
         <div className="flex-1 w-11/12 max-w-[1200px] mx-auto pt-20 pb-30">
@@ -12,7 +14,7 @@ const BuyCredit=()=>{
                     <h2 className="text-text-primary text-lg font-medium">{plan.id}</h2>
                     <p className="text-text-primary mt-2 mb-5">{plan.desc}</p>
                     <p className="text-text-primary mb-10"><span className="text-3xl font-medium">${plan.price}</span>{" "}<span>/{plan.credits}</span></p>
-                    <button className="bg-black cursor-pointer w-full text-white text-center py-2 rounded-sm">Get started</button>
+                    <button className="bg-black cursor-pointer w-full text-white text-center py-2 rounded-sm">{authenticated?"Purchase":"Get started"}</button>
                 </div>)}
             </div>
         </div>

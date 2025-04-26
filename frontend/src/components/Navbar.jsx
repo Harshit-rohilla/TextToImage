@@ -29,7 +29,7 @@ const Navbar=()=>{
         setLoading(true)
         const toastId=toast.loading("loading...")
         try {
-            const response=await axios.post(`${import.meta.env.VITE_BASE_URL}/user/login`,{email:data.email,password:data.password})
+            const response=await axios.post(`${import.meta.env.VITE_BASE_URL}/user/login`,{email:data.email,password:data.password},{withCredentials:true})
             if(response?.data?.success){
                 console.log(response.data);
                 dispatch(setName(response.data.data.name))

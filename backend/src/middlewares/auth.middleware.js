@@ -12,6 +12,7 @@ export const verifyJwt=asyncHandler((req,res,next)=>{
         req.payload=payload
         return next()
     } catch (error) {
+        console.log(error);
         throw new ApiError(401,"invalid token")
     }
 })

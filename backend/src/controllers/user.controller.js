@@ -21,7 +21,8 @@ export const login=asyncHandler(async(req,res)=>{
         throw new ApiError(400,"incorrect password")
     }
     const accessToken=user.generateAccessToken()
-    const options={}
+
+    const options={httpOnly:true}
     return res.cookie("accessToken",accessToken,options).status(200).json(new ApiResponse(200,{name:user.name,creditsRemaining:user.creditsRemaining},"user logged in successfully"))
 })
 
@@ -126,6 +127,7 @@ export const resetPassword=asyncHandler(async(req,res)=>{
 
 // *logout controller
 export const logout=asyncHandler(async(req,res)=>{
-    const options={}
+    const options={httpOnly:true}
     res.clearCookie("accessToken",options).status(200).json(new ApiResponse(200,null,"logged out"))
 })
+

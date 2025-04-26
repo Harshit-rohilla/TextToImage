@@ -5,9 +5,24 @@ import image3 from "../assets/image3.png"
 import image4 from "../assets/image4.png"
 import image5 from "../assets/image5.png"
 import {testimonialsData} from "../assets/data"
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
+
+
 
 
 const Home=()=>{
+    const navigate=useNavigate()
+    const authenticated=useSelector((store)=>store.global.authenticated)
+    const goToGenerateImage=()=>{
+        if(authenticated){
+            navigate("/generate-image")
+        }
+        else{
+            toast.error("Please login")
+        }
+    }
     return(
         <>
         <div className="flex-1 pt-20 w-11/12 max-w-[1200px] mx-auto pb-30">
@@ -17,7 +32,7 @@ const Home=()=>{
                 <p className=" text-text-primary text-center mx-auto text-5xl md:text-7xl">image, in seconds.</p>
                 <h2 className="md:max-w-xl text-center text-text-primary mt-5 mx-auto">Unleash your creativity with AI. Turn your imagination into visual art in seconds – just type, and watch the magic happen.</h2>
                 <div className="w-full flex justify-between">
-                <button className="bg-black hover:rotate-2 text-white hover:scale-105 duration-300 cursor-pointer px-6 py-2 rounded-full mt-5 mx-auto ">Generate Images</button>
+                <button onClick={goToGenerateImage} className="bg-black hover:rotate-2 text-white hover:scale-105 duration-300 cursor-pointer px-6 py-2 rounded-full mt-5 mx-auto ">Generate Images</button>
                 </div>
                 <div className="md:w-96 mx-auto grid grid-cols-5 gap-4 mt-10">
                     <img className="aspect-square rounded-sm hover:scale-105 duration-300 cursor-pointer" src={image1} alt="image" />
@@ -95,7 +110,7 @@ const Home=()=>{
             <section className="w-full mt-30">
                 <h2 className="md:text-4xl text-5xl font-medium text-center text-text-primary">See the magic. Try now</h2>
                 <div className="flex justify-center">
-                    <button className="bg-black text-white hover:rotate-2 hover:scale-105 duration-300 cursor-pointer px-6 py-2 rounded-full mt-5 mx-auto">Generate Images</button>
+                    <button onClick={goToGenerateImage} className="bg-black text-white hover:rotate-2 hover:scale-105 duration-300 cursor-pointer px-6 py-2 rounded-full mt-5 mx-auto">Generate Images</button>
                 </div>
             </section>
         </div>
