@@ -131,3 +131,6 @@ export const logout=asyncHandler(async(req,res)=>{
     res.clearCookie("accessToken",options).status(200).json(new ApiResponse(200,null,"logged out"))
 })
 
+
+
+

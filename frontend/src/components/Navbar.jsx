@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAuthenticated, setName } from "../redux/slices/globalSlice";
 import { setCreditsRemaining } from "../redux/slices/globalSlice";
 import { setIsModalVisible } from "../redux/slices/globalSlice";
+import {motion,AnimatePresence} from "motion/react"
 
 const Navbar=()=>{
     const [isPasswordVisible,setIsPasswordVisible]=useState(false)
@@ -110,23 +111,32 @@ const Navbar=()=>{
         </header>
 
         {/* Login Modal */}
-        <div onClick={()=>{dispatch(setIsModalVisible(false))}} className={`${isModalVisible?"fixed":"hidden"} z-50 top-0 left-0 bg-black/30 h-screen w-full backdrop-blur-md flex justify-center items-center`}>
-          <div onClick={(e)=>{e.stopPropagation()}} className="bg-white rounded-lg pt-4 pb-10 px-4">
-                <div className="flex justify-end text-text-primary cursor-pointer"><X onClick={()=>{dispatch(setIsModalVisible(false))}} weight="bold" size={20}/></div>
-                <h2 className="text-center px-6 text-text-primary text-3xl font-medium mt-2">Login</h2>
-                <p className="text-text-primary px-6 text-center mb-10">Welcome! Please login to continue</p>
-                <form onSubmit={handleSubmit(submitForm)} className="flex flex-col gap-4 md:w-80 mx-auto">
-                    <input {...register("email")} type="email" placeholder="Email id" required className="px-4 py-2 text-text-primary border-[1px] border-text-primary w-full rounded-full" />
-                    <div className="relative">
-                        <input {...register("password")} placeholder="Password" type={isPasswordVisible?"text":"password"} className="pl-4 pr-10 py-2 text-text-primary border-[1px] border-text-primary w-full rounded-full" required/>
-                        {isPasswordVisible?<EyeSlash onClick={()=>{setIsPasswordVisible((prev)=>!prev)}} size={20} className="absolute right-4 top-1/2 -translate-y-1/2"/>:<Eye onClick={()=>{setIsPasswordVisible((prev)=>!prev)}} size={20} className="absolute right-4 top-1/2 -translate-y-1/2"/>}
-                    </div>
-                    <p onClick={()=>{dispatch(setIsModalVisible(false))}} className="flex -mt-2 justify-start "><Link to="/forgot-password" className="text-[rgb(0,122,255)]">Forgot password?</Link></p>
-                    <button disabled={loading} className="text-white bg-[rgb(0,122,255)] cursor-pointer py-2 text-center rounded-full">Login</button>
-                </form>
-                <p onClick={()=>{dispatch(setIsModalVisible(false))}} className="flex justify-center mt-5"><span className="text-text-primary">Don't have an account?</span><Link to="/signup" className="text-[rgb(0,122,255)] ml-1">Sign up</Link></p>
-          </div>
-        </div>
+        <AnimatePresence>
+        {isModalVisible?<motion.div 
+        key={"login"}
+        initial={{opacity:0,scale:0.2}}
+        animate={{opacity:1,scale:1}}
+        exit={{opacity:0,scale:0}}
+        transition={{duration:0.2}}
+        onClick={()=>{dispatch(setIsModalVisible(false))}} className={`fixed z-50 top-0 left-0 bg-black/30 h-screen w-full backdrop-blur-md flex justify-center items-center`}>
+            <div onClick={(e)=>{e.stopPropagation()}} className="bg-white rounded-lg pt-4 pb-10 px-4">
+                    <div className="flex justify-end text-text-primary cursor-pointer"><X onClick={()=>{dispatch(setIsModalVisible(false))}} weight="bold" size={20}/></div>
+                    <h2 className="text-center px-6 text-text-primary text-3xl font-medium mt-2">Login</h2>
+                    <p className="text-text-primary px-6 text-center mb-10">Welcome! Please login to continue</p>
+                    <form onSubmit={handleSubmit(submitForm)} className="flex flex-col gap-4 md:w-80 mx-auto">
+                        <input {...register("email")} type="email" placeholder="Email id" required className="px-4 py-2 text-text-primary border-[1px] border-text-primary w-full rounded-full" />
+                        <div className="relative">
+                            <input {...register("password")} placeholder="Password" type={isPasswordVisible?"text":"password"} className="pl-4 pr-10 py-2 text-text-primary border-[1px] border-text-primary w-full rounded-full" required/>
+                            {isPasswordVisible?<EyeSlash onClick={()=>{setIsPasswordVisible((prev)=>!prev)}} size={20} className="absolute right-4 top-1/2 -translate-y-1/2"/>:<Eye onClick={()=>{setIsPasswordVisible((prev)=>!prev)}} size={20} className="absolute right-4 top-1/2 -translate-y-1/2"/>}
+                        </div>
+                        <p onClick={()=>{dispatch(setIsModalVisible(false))}} className="flex -mt-2 justify-start "><Link to="/forgot-password" className="text-[rgb(0,122,255)]">Forgot password?</Link></p>
+                        <button disabled={loading} className="text-white bg-[rgb(0,122,255)] cursor-pointer py-2 text-center rounded-full">Login</button>
+                    </form>
+                    <p onClick={()=>{dispatch(setIsModalVisible(false))}} className="flex justify-center mt-5"><span className="text-text-primary">Don't have an account?</span><Link to="/signup" className="text-[rgb(0,122,255)] ml-1">Sign up</Link></p>
+            </div>
+          
+        </motion.div>:null}
+        </AnimatePresence>
         </>
     )
 }

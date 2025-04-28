@@ -5,6 +5,7 @@ import "dotenv/config"
 import cookieParser from "cookie-parser"
 import { userRouter } from "./routes/user.routes.js"
 import { imageRouter } from "./routes/image.routes.js"
+import { paymentRouter } from "./routes/payment.routes.js"
 
 const app=express()
 
@@ -26,6 +27,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use("/api/v1/user",userRouter)
 app.use("/api/v1/image",imageRouter)
+app.use("/api/v1/payment",paymentRouter)
 
 // *Global error handler
 app.use((err,req,res,next)=>{
