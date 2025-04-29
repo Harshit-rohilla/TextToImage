@@ -23,6 +23,7 @@ export const generateOrder=asyncHandler(async(req,res)=>{
         })
         return res.status(200).json(new ApiResponse(200,response,"Order Created"))
     } catch (error) {
+        console.log(error);
         throw new ApiError(500,error?.error?.description || "Unable to create order")
     }
 })
