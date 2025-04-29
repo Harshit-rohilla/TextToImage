@@ -1,5 +1,5 @@
 import { useState } from "react"
-import image1 from "../assets/image1.png"
+import image1 from "../assets/image1.jpg"
 import axios from "axios"
 import toast from "react-hot-toast"
 import {useDispatch, useSelector} from "react-redux"

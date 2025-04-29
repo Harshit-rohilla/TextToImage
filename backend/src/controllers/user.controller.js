@@ -22,7 +22,8 @@ export const login=asyncHandler(async(req,res)=>{
     }
     const accessToken=user.generateAccessToken()
 
-    const options={httpOnly:true}
+    const isProduction=process.env.ENVIRONMENT==="production"
+    const options={httpOnly:true,secure:isProduction,sameSite:isProduction?"None":"Lax"}
     return res.cookie("accessToken",accessToken,options).status(200).json(new ApiResponse(200,{name:user.name,creditsRemaining:user.creditsRemaining},"user logged in successfully"))
 })
 
@@ -127,7 +128,8 @@ export const resetPassword=asyncHandler(async(req,res)=>{
 
 // *logout controller
 export const logout=asyncHandler(async(req,res)=>{
-    const options={httpOnly:true}
+    const isProduction=process.env.ENVIRONMENT==="production"
+    const options={httpOnly:true,secure:isProduction,sameSite:isProduction?"None":"Lax"}
     res.clearCookie("accessToken",options).status(200).json(new ApiResponse(200,null,"logged out"))
 })
 

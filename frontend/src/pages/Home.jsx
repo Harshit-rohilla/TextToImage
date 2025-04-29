@@ -1,14 +1,15 @@
 import { Eye, DownloadSimple, MagicWand } from "@phosphor-icons/react";
-import image1 from "../assets/image1.png"
-import image2 from "../assets/image2.png"
-import image3 from "../assets/image3.png"
-import image4 from "../assets/image4.png"
-import image5 from "../assets/image5.png"
+import image1 from "../assets/image1.jpg"
+import image2 from "../assets/image2.jpg"
+import image3 from "../assets/image3.jpg"
+import image4 from "../assets/image4.jpg"
+import image5 from "../assets/image5.jpg"
 import {testimonialsData} from "../assets/data"
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { motion } from "motion/react"
+import { Rating } from 'react-simple-star-rating'
 
 
 
@@ -42,7 +43,7 @@ const Home=()=>{
                 initial={{scale:0.5, opacity:0.2, y:50}}
                 animate={{scale:1, opacity:1, y:0}}
                 transition={{duration:0.6}}
-                className=" text-text-primary text-center mx-auto text-5xl md:text-7xl">image, in seconds.</motion.p>
+                className=" text-text-primary w-full text-center mx-auto text-5xl md:text-7xl">image, in seconds.</motion.p>
                 <motion.h2
                 initial={{scale:0.5, opacity:0.2, y:50}}
                 animate={{scale:1, opacity:1, y:0}}
@@ -52,7 +53,7 @@ const Home=()=>{
                 initial={{scale:0.5, opacity:0.2, y:50}}
                 animate={{scale:1, opacity:1, y:0}}
                 transition={{duration:0.9}}
-                className="w-full flex justify-between">
+                className="w-full flex justify-center">
                 <button
                 onClick={goToGenerateImage} className="bg-black hover:rotate-2 text-white hover:scale-105 duration-300 cursor-pointer px-6 py-2 rounded-full mt-5 mx-auto ">Generate Images</button>
                 </motion.div>
@@ -149,11 +150,15 @@ const Home=()=>{
                     {
                         testimonialsData.map((tm,index)=><div
                         
-                        key={index}  className="py-8 hover:scale-105 duration-300 cursor-pointer backdrop:backdrop-blur-md rounded-md w-80 h-72 px-6 flex flex-col items-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] bg-[rgba(255,255,255,0.5)] border-[1px] border-[rgba(255,255,255,0.25)]">
+                        key={index}  className="py-8 hover:scale-105 duration-300 cursor-pointer rounded-md w-80 h-80 px-6 flex flex-col items-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] bg-[rgba(255,255,255,0.5)] border-[1px] border-[rgba(255,255,255,0.25)]">
                             <img src={tm.image} alt="image" className="w-10 h-10 object-cover"/>
                             <h2 className="text-text-primary font-medium text-lg">{tm.name}</h2>
                             <p className="text-text-primary font-medium text-sm">{tm.role}</p>
-                            <p>stars</p>
+                            <Rating className="mb-5" SVGstyle={{ display: "inline-block" }}
+                            size={20}
+                            allowFraction
+                            readonly 
+                            initialValue={tm.stars} />
                             <p className="text-text-primary text-center">{tm.text}</p>
                         </div>)
                     }

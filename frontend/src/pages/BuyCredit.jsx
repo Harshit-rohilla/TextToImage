@@ -2,11 +2,18 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast"
 import axios from "axios"
+import { buy } from "../buyCredit";
+import { useNavigate } from "react-router-dom";
+import { setAuthenticated,setCreditsRemaining, setName } from "../redux/slices/globalSlice";
 
 const BuyCredit=()=>{
     const authenticated=useSelector((store)=>store.global.authenticated)
     const [plans,setPlans]=useState([])
     const [loading,setLoading]=useState(false)
+    const name=useSelector((store)=>store.global.name)
+    const navigate=useNavigate()
+    const dispatch=useDispatch()
+
     const fetchPlans=async()=>{
         try {
             setLoading(true)
@@ -38,7 +45,7 @@ const BuyCredit=()=>{
                     <h2 className="text-text-primary text-lg font-medium">{plan.name}</h2>
                     <p className="text-text-primary mt-2 mb-5">{plan.description}</p>
                     <p className="text-text-primary mb-10"><span className="text-3xl font-medium">₹{plan.amount}</span>{" "}<span>/{plan.credit}</span></p>
-                    <button className="bg-black cursor-pointer w-full text-white text-center py-2 rounded-sm">{authenticated?"Purchase":"Get started"}</button>
+                    <button onClick={()=>{buy(plan._id,name,dispatch,navigate,setAuthenticated,setCreditsRemaining,setName)}} className="bg-black cursor-pointer w-full text-white text-center py-2 rounded-sm">{authenticated?"Purchase":"Get started"}</button>
                 </div>)}
             </div></>}
         </div>
