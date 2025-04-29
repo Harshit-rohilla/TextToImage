@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Simple circular background -->
+  <circle cx="16" cy="16" r="15" fill="#5D4FFF" stroke="#E1DFFF" stroke-width="1"/>
+  
+  <!-- Centered photo frame only -->
+  <rect x="10" y="10" width="12" height="12" stroke="#FFFFFF" stroke-width="1.5" fill="none" rx="1"/>
+</svg>
