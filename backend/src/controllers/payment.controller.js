@@ -15,11 +15,12 @@ export const generateOrder=asyncHandler(async(req,res)=>{
     if(!plan){
         throw new ApiError(400,"Invalid Plan")
     }
-
+    console.log(typeof(plan.amount));
     try {
         const response=await instance.orders.create({
             amount:plan.amount*100,
             currency:"INR",
+            receipt: `receipt_${Date.now()}`
         })
         return res.status(200).json(new ApiResponse(200,response,"Order Created"))
     } catch (error) {
