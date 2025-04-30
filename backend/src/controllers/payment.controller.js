@@ -6,32 +6,28 @@ import { Plan } from "../models/Plan.model.js";
 import crypto from "crypto";
 import { User } from "../models/User.model.js";
 
-export const generateOrder = asyncHandler(async (req, res) => {
-  const { planId } = req.body;
-  if (!planId) {
-    throw new ApiError(400, "details missing");
-  }
-  const plan = await Plan.findById(planId);
-  if (!plan) {
-    throw new ApiError(400, "Invalid Plan");
-  }
+export const generateOrder=asyncHandler(async(req,res)=>{
+    const {planId}=req.body
+    if(!planId){
+        throw new ApiError(400,"details missing")
+    }
+    const plan=await Plan.findById(planId)
+    if(!plan){
+        throw new ApiError(400,"Invalid Plan")
+    }
 
-  try {
-    const response = await instance.orders.create({
-      amount: plan.amount * 100,
-      currency: "INR",
-    });
-    return res
-      .status(200)
-      .json(new ApiResponse(200, response, "Order Created"));
-  } catch (error) {
-    //console.log(error);
-    throw new ApiError(
-      500,
-      error?.error?.description || "Unable to create order"
-    );
-  }
-});
+    try {
+        const response=await instance.orders.create({
+            amount:plan.amount*100,
+            currency:"INR",
+            receipt: `receipt_${Date.now()}`
+        })
+        return res.status(200).json(new ApiResponse(200,response,"Order Created"))
+    } catch (error) {
+        
+        throw new ApiError(500,error?.error?.description || "Unable to create order")
+    }
+})
 
 export const verifyPayment = asyncHandler(async (req, res) => {
   const razorpay_payment_id = req.body["razorpay_payment_id"];
